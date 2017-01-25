@@ -1,0 +1,7 @@
+rennes_jeux_sondage:
+    resource: "@RennesJeuxSondageBundle/Resources/config/routing.yml"
+    prefix:   /sondage
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation

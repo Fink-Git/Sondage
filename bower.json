@@ -1,0 +1,15 @@
+{
+    "name": "RennesJeux",
+    "version": "1.0.0",
+    "description": "",
+    "dependencies": {
+        "jquery": "latest",
+        "bootstrap": "3.*",
+        "fontawesome": "latest",
+        "less.js": "latest",
+        "less-prefixer": "latest",
+        "html5shiv": "~3.7.2",
+        "respond": "~1.4.2",
+        "tinymce": "latest"
+    }
+}

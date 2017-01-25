@@ -1,0 +1,23 @@
+rennes_jeux_sondage_homepage:
+    path:     /
+    defaults: { _controller: RennesJeuxSondageBundle:Default:index }
+    
+rennes_jeux_sondage_liste:
+    path:    /liste
+    defaults: { _controller: RennesJeuxSondageBundle:Session:liste }
+    
+rennes_jeux_sondage_login:
+    path:    /login
+    defaults: { _controller: RennesJeuxSondageBundle:User:login }
+
+rennes_jeux_sondage_disconnect:
+    path:    /disconnect
+    defaults: { _controller: RennesJeuxSondageBundle:User:disconnect }
+
+rennes_jeux_sondage_proposees:
+    path:    /proposees
+    defaults: { _controller: RennesJeuxSondageBundle:Session:proposees }
+
+rennes_jeux_sondage_validees:
+    path:    /validees
+    defaults: { _controller: RennesJeuxSondageBundle:Session:validees }

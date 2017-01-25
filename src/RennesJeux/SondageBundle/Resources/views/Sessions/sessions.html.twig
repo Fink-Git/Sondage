@@ -1,0 +1,37 @@
+
+{% extends 'RennesJeuxSondageBundle::base.html.twig' %}
+
+{%  block body %}
+<h1 class="page-header">Sessions {% if type == 'p' %} proposées {% else %} validées {% endif %}</h1>
+{% if sessions|length > 0 %}
+<div class="table-responsive">
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th>Date</th>
+	      <th>Nom</th>
+	      <th>Par qui ?</th>
+	      <th>Ou ?</th>
+	      <th>Participants</th>
+	      <th>Action</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{% for session in sessions %}
+	    <tr>
+	      <td>{{ session.date|date('d/m/Y') }}</td>
+	      <td>{{ session.jeu.nom }}</td>
+	      <td>{{ session.jeu.hote }}</td>
+	      <td>{% if session.jeu.lieu %}{{ session.jeu.lieu }}{% endif %}</td>
+	      <td>{{ session.nbParticipants }}</td>
+	      <td>Je veux participer</td>
+	    </tr>
+	    {% endfor %}
+	  </tbody>
+	</table>
+</div>
+{% else %}
+Pas de sessions pour l'instant
+{% endif %}
+{% endblock %}
+
