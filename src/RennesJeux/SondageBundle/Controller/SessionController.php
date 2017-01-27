@@ -11,7 +11,7 @@ class SessionController extends Controller
     /**
      * Liste les sessions de jeux dont la date est >= a la date du jour
      */
-    public function listeAction(Request $request)
+    public function listeAction(Request $request, $affichage)
     {
         $user_name = $request->getSession()->get('user_name');
         if (!$user_name)
@@ -19,33 +19,18 @@ class SessionController extends Controller
             return $this->redirectToRoute('rennes_jeux_sondage_login');
         }
         
-        $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('RennesJeuxSondageBundle:Session');
-
-        $requete = $repository->sessionsProposees(true);
-        $sessionsProposees = $repository->Execution($requete);
-
-        $requete = $repository->sessionsValidees(true);
-        $sessionsValidees = $repository->Execution($requete);
-
-        return $this->render('RennesJeuxSondageBundle:Sessions:liste.html.twig', array('user_name' => $user_name,'sessionsProposees' => $sessionsProposees,'sessionsValidees' => $sessionsValidees));
+        return $this->render('RennesJeuxSondageBundle:Sessions:liste.html.twig', array('affichage' => $affichage));
     }
 
     /**
     *	Liste les sessions proposées n'ayant pas atteint le nombre requis de participant pour devenir validées
     */
-    public function proposeesAction(Request $request)
+    public function proposeesAction(Request $request, $apercu)
     {
-    	$user_name = $request->getSession()->get('user_name');
-        if (!$user_name)
-        {
-            return $this->redirectToRoute('rennes_jeux_sondage_login');
-        }
-
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('RennesJeuxSondageBundle:Session');
 
-        $requete = $repository->sessionsProposees(false);
+        $requete = $repository->sessionsProposees($apercu);
         $sessionsProposees = $repository->Execution($requete);
 
         return $this->render('RennesJeuxSondageBundle:Sessions:sessions.html.twig', array('sessions' => $sessionsProposees, 'type' => 'p'));
@@ -55,18 +40,12 @@ class SessionController extends Controller
     /**
     *	Liste les sessions ayant atteint le nombre requis de participant
     */
-    public function valideesAction(Request $request)
+    public function valideesAction(Request $request, $apercu)
     {
-    	$user_name = $request->getSession()->get('user_name');
-        if (!$user_name)
-        {
-            return $this->redirectToRoute('rennes_jeux_sondage_login');
-        }
-
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('RennesJeuxSondageBundle:Session');
 
-        $requete = $repository->sessionsValidees(false);
+        $requete = $repository->sessionsValidees($apercu);
         $sessionsValidees = $repository->Execution($requete);
 
         return $this->render('RennesJeuxSondageBundle:Sessions:sessions.html.twig', array('sessions' => $sessionsValidees, 'type' => 'v'));

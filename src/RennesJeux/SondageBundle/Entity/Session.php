@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use RennesJeux\SondageBundle\Entity\Jeux;
+use RennesJeux\SondageBundle\Entity\User;
 
 /**
  * Session
@@ -119,7 +120,7 @@ class Session
      *
      * @return Session
      */
-    public function addJoueur(\RennesJeux\SondageBundle\Entity\User $joueur)
+    public function addJoueur(User $joueur)
     {
         $this->joueurs[] = $joueur;
 
@@ -131,7 +132,7 @@ class Session
      *
      * @param \RennesJeux\SondageBundle\Entity\User $joueur
      */
-    public function removeJoueur(\RennesJeux\SondageBundle\Entity\User $joueur)
+    public function removeJoueur(User $joueur)
     {
         $this->joueurs->removeElement($joueur);
     }

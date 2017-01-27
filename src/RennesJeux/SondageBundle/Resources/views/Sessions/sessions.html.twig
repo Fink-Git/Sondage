@@ -1,8 +1,5 @@
 
-{% extends 'RennesJeuxSondageBundle::base.html.twig' %}
-
-{%  block body %}
-<h1 class="page-header">Sessions {% if type == 'p' %} proposées {% else %} validées {% endif %}</h1>
+<h2 class="sub-header">Sessions {% if type == 'p' %} proposées {% else %} validées {% endif %}</h2>
 {% if sessions|length > 0 %}
 <div class="table-responsive">
 	<table class="table table-striped">
@@ -24,7 +21,21 @@
 	      <td>{{ session.jeu.hote }}</td>
 	      <td>{% if session.jeu.lieu %}{{ session.jeu.lieu }}{% endif %}</td>
 	      <td>{{ session.nbParticipants }}</td>
-	      <td>Bouton je veux participer</td>
+	      <td>      	
+		      	{% if session.nbParticipants < session.jeu.nbparticipantmax %}
+		      		{% for joueur in session.joueurs if joueur.nom|upper == app.session.get('user_name')|upper %}
+	      				<a class="btn btn-warning" href={{ path('rennes_jeux_sondage_desinscription',{'id' : session.id }) }} role="button">Se desinscrire</a>
+	      			{% else %}
+	      				<a class="btn btn-primary" href={{ path('rennes_jeux_sondage_inscription',{'id' : session.id }) }} role="button">Je veux participer</a>
+	      			{% endfor %}
+	      		{% else %}
+	      			{% for joueur in session.joueurs if joueur.nom|upper == app.session.get('user_name')|upper %}
+	      				<a class="btn btn-warning" href={{ path('rennes_jeux_sondage_desinscription',{'id' : session.id }) }} role="button">Se desinscrire</a>
+	      			{% else %}
+	      				Session Complete
+	      			{% endfor %}
+		      	{% endif %}
+      	  </td>
 	    </tr>
 	    {% endfor %}
 	  </tbody>
@@ -33,5 +44,4 @@
 {% else %}
 Pas de sessions pour l'instant
 {% endif %}
-{% endblock %}
 

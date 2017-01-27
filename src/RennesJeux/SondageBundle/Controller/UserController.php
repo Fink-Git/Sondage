@@ -16,7 +16,10 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
  */
 class UserController extends Controller
 {
-        public function loginAction(Request $request)
+    /**
+    * Login et inscription l'appli
+    */
+    public function loginAction(Request $request)
     {
         $user = new User();
         
@@ -36,7 +39,7 @@ class UserController extends Controller
             {
                 $em = $this->getDoctrine()->getManager();
                 // verification (simple) de l'existence du user
-                $userEnBase = $em->getRepository('RennesJeuxSondageBundle:User')->findOneByNom(strtoupper($user->getNom()));
+                $userEnBase = $em->getRepository('RennesJeuxSondageBundle:User')->findOneByNom($user->getNom());
                 
                 $session = $request->getSession();
                 $session->set('user_name',$user->getNom());
@@ -54,6 +57,9 @@ class UserController extends Controller
         return $this->render('RennesJeuxSondageBundle:User:login.html.twig', array('form' => $form->createView(),));
     }
 
+    /**
+    * Deconnexion
+    */
     public function disconnectAction(Request $request)
     {
         $session = $request->getSession();
@@ -62,14 +68,53 @@ class UserController extends Controller
         return $this->redirectToRoute('rennes_jeux_sondage_homepage');
     }
 
-    public function inscriptionAction($session)
+    /**
+    * Inscription a une session de jeu
+    */
+    public function inscriptionAction(Request $request, $id)
     {
+        $user_name = $request->getSession()->get('user_name');
+
         $em = $this->getDoctrine()->getManager();
-        $em->getRepository('RennesJeuxSondageBundle:Session')->find($session.id)->increaseParticipants();
+        $sessionJeu = $em->getRepository('RennesJeuxSondageBundle:Session')->findSession($id);
+
+        // s'il reste de la place, on s'inscrit
+        if ($sessionJeu->getNbParticipants() < $sessionJeu->getJeu()->getNbparticipantmax())
+        {
+            $joueur = $em->getRepository('RennesJeuxSondageBundle:User')->findOneByNom($user_name);
+            $sessionJeu->addJoueur($joueur);
+            $sessionJeu->increaseParticipants();
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('rennes_jeux_sondage_liste');
+
     }
 
-    public function descinscriptionAction($session)
+    /**
+    * Desinscription a une session de jeu
+    */
+    public function desinscriptionAction(Request $request, $id)
     {
+        
+        $user_name = $request->getSession()->get('user_name');
 
+        $em = $this->getDoctrine()->getManager();
+        // on recupere la session est les joueurs associes
+        $sessionJoueur = $em->getRepository('RennesJeuxSondageBundle:Session')->find($id);
+
+        // on verifie que le user est bien inscrit a la session
+        foreach ($sessionJoueur->getJoueurs() as $joueur) 
+        {
+            if (strtoupper($user_name) == strtoupper($joueur->getNom()))
+            {
+                // on reduit le nombre de participant
+                $sessionJoueur->removeJoueur($joueur);
+                $sessionJoueur->decreaseParticipants();
+                $em->flush();
+            }
+        }
+
+        return $this->redirectToRoute('rennes_jeux_sondage_liste');
     }
 }

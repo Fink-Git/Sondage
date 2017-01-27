@@ -3,8 +3,12 @@ rennes_jeux_sondage_homepage:
     defaults: { _controller: RennesJeuxSondageBundle:Default:index }
     
 rennes_jeux_sondage_liste:
-    path:    /liste
-    defaults: { _controller: RennesJeuxSondageBundle:Session:liste }
+    path:    /liste/{affichage}
+    defaults: 
+      _controller: RennesJeuxSondageBundle:Session:liste 
+      affichage: apercu
+    requirements:
+      affichage: apercu|proposees|validees
     
 rennes_jeux_sondage_login:
     path:    /login
@@ -15,9 +19,29 @@ rennes_jeux_sondage_disconnect:
     defaults: { _controller: RennesJeuxSondageBundle:User:disconnect }
 
 rennes_jeux_sondage_proposees:
-    path:    /proposees
-    defaults: { _controller: RennesJeuxSondageBundle:Session:proposees }
+    path:    /proposees/{apercu}
+    defaults: 
+      _controller: RennesJeuxSondageBundle:Session:proposees
+      apercu: false
+    requirements:
+      apercu: true|false
 
 rennes_jeux_sondage_validees:
-    path:    /validees
-    defaults: { _controller: RennesJeuxSondageBundle:Session:validees }
+    path:    /validees/{apercu}
+    defaults: 
+      _controller: RennesJeuxSondageBundle:Session:validees
+      apercu: false
+    requirements:
+      apercu: true|false
+
+rennes_jeux_sondage_inscription:
+    path:    /inscription/{id}
+    defaults: { _controller: RennesJeuxSondageBundle:User:inscription }
+    requirements:
+        id: \d+
+
+rennes_jeux_sondage_desinscription:
+    path:    /desinscription/{id}
+    defaults: { _controller: RennesJeuxSondageBundle:User:desinscription }
+    requirements:
+        id: \d+
