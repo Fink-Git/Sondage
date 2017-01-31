@@ -45,3 +45,7 @@ rennes_jeux_sondage_desinscription:
     defaults: { _controller: RennesJeuxSondageBundle:User:desinscription }
     requirements:
         id: \d+
+
+rennes_jeux_sondage_add:
+    path:    /ajout
+    defaults: { _controller: RennesJeuxSondageBundle:Jeux:add }

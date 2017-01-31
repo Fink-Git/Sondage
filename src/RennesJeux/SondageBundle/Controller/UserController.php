@@ -74,6 +74,10 @@ class UserController extends Controller
     public function inscriptionAction(Request $request, $id)
     {
         $user_name = $request->getSession()->get('user_name');
+        if (!$user_name)
+        {
+            return $this->redirectToRoute('rennes_jeux_sondage_login');
+        }
 
         $em = $this->getDoctrine()->getManager();
         $sessionJeu = $em->getRepository('RennesJeuxSondageBundle:Session')->findSession($id);
@@ -96,8 +100,11 @@ class UserController extends Controller
     */
     public function desinscriptionAction(Request $request, $id)
     {
-        
         $user_name = $request->getSession()->get('user_name');
+        if (!$user_name)
+        {
+            return $this->redirectToRoute('rennes_jeux_sondage_login');
+        }
 
         $em = $this->getDoctrine()->getManager();
         // on recupere la session est les joueurs associes

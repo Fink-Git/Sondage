@@ -3,6 +3,7 @@
 namespace RennesJeux\SondageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Jeux
@@ -56,11 +57,25 @@ class Jeux
      */
     private $nbparticipantmax;
 
+    /**
+    * @ORM\OneToMany(targetEntity="RennesJeux\SondageBundle\Entity\Session", mappedBy="jeu")
+    * @ORM\JoinColumn(nullable=true)
+    */
+    private $sessions;
+
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->sessions = new ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -156,7 +171,7 @@ class Jeux
     /**
      * Get nbparticipantmin
      *
-     * @return int
+     * @return integer
      */
     public function getNbparticipantmin()
     {
@@ -180,10 +195,45 @@ class Jeux
     /**
      * Get nbparticipantmax
      *
-     * @return int
+     * @return integer
      */
     public function getNbparticipantmax()
     {
         return $this->nbparticipantmax;
+    }
+
+    /**
+     * Add session
+     *
+     * @param \RennesJeux\SondageBundle\Entity\Session $session
+     *
+     * @return Jeux
+     */
+    public function addSession(\RennesJeux\SondageBundle\Entity\Session $session)
+    {
+        $session->setJeu($this);
+        $this->sessions[] = $session;
+
+        return $this;
+    }
+
+    /**
+     * Remove session
+     *
+     * @param \RennesJeux\SondageBundle\Entity\Session $session
+     */
+    public function removeSession(\RennesJeux\SondageBundle\Entity\Session $session)
+    {
+        $this->sessions->removeElement($session);
+    }
+
+    /**
+     * Get sessions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSessions()
+    {
+        return $this->sessions;
     }
 }

@@ -1,0 +1,7 @@
+  <div class="form-group">
+    {{ form_label(item.date, "Date", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+    {{ form_errors(item.date) }}
+    <div class="col-sm-10">
+      {{ form_widget(item.date, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>

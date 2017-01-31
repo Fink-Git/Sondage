@@ -3,7 +3,6 @@
 namespace RennesJeux\SondageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 use RennesJeux\SondageBundle\Entity\Jeux;
 use RennesJeux\SondageBundle\Entity\User;
@@ -33,8 +32,8 @@ class Session
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="RennesJeux\SondageBundle\Entity\Jeux")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="RennesJeux\SondageBundle\Entity\Jeux", inversedBy="sessions")
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     private $jeu;
     
@@ -48,10 +47,20 @@ class Session
     */
     private $nbParticipants;
     
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        //$this->setNbParticipants(0);
+        $this->joueurs = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -83,81 +92,6 @@ class Session
     }
 
     /**
-     * Set jeu
-     *
-     * @param \RennesJeux\SondageBundle\Entity\Jeux $jeu
-     *
-     * @return Session
-     */
-    public function setJeu(Jeux $jeu)
-    {
-        $this->jeu = $jeu;
-
-        return $this;
-    }
-
-    /**
-     * Get jeu
-     *
-     * @return \RennesJeux\SondageBundle\Entity\Jeux
-     */
-    public function getJeu()
-    {
-        return $this->jeu;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->joueurs = new ArrayCollection();
-    }
-
-    /**
-     * Add joueur
-     *
-     * @param \RennesJeux\SondageBundle\Entity\User $joueur
-     *
-     * @return Session
-     */
-    public function addJoueur(User $joueur)
-    {
-        $this->joueurs[] = $joueur;
-
-        return $this;
-    }
-
-    /**
-     * Remove joueur
-     *
-     * @param \RennesJeux\SondageBundle\Entity\User $joueur
-     */
-    public function removeJoueur(User $joueur)
-    {
-        $this->joueurs->removeElement($joueur);
-    }
-
-    /**
-     * Get joueurs
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getJoueurs()
-    {
-        return $this->joueurs;
-    }
-
-    public function increaseParticipants()
-    {
-        $this->nbParticipants++;
-    }
-
-    public function decreaseParticipants()
-    {
-        $this->nbParticipants--;
-    }
-
-    /**
      * Set nbParticipants
      *
      * @param integer $nbParticipants
@@ -179,5 +113,72 @@ class Session
     public function getNbParticipants()
     {
         return $this->nbParticipants;
+    }
+
+    /**
+     * Set jeu
+     *
+     * @param \RennesJeux\SondageBundle\Entity\Jeux $jeu
+     *
+     * @return Session
+     */
+    public function setJeu(\RennesJeux\SondageBundle\Entity\Jeux $jeu)
+    {
+        $this->jeu = $jeu;
+
+        return $this;
+    }
+
+    /**
+     * Get jeu
+     *
+     * @return \RennesJeux\SondageBundle\Entity\Jeux
+     */
+    public function getJeu()
+    {
+        return $this->jeu;
+    }
+
+    /**
+     * Add joueur
+     *
+     * @param \RennesJeux\SondageBundle\Entity\User $joueur
+     *
+     * @return Session
+     */
+    public function addJoueur(\RennesJeux\SondageBundle\Entity\User $joueur)
+    {
+        $this->joueurs[] = $joueur;
+
+        return $this;
+    }
+
+    /**
+     * Remove joueur
+     *
+     * @param \RennesJeux\SondageBundle\Entity\User $joueur
+     */
+    public function removeJoueur(\RennesJeux\SondageBundle\Entity\User $joueur)
+    {
+        $this->joueurs->removeElement($joueur);
+    }
+
+    /**
+     * Get joueurs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getJoueurs()
+    {
+        return $this->joueurs;
+    }
+
+    public function increaseParticipants()
+    {
+        $this->nbParticipants++;
+    }
+    public function decreaseParticipants()
+    {
+        $this->nbParticipants--;
     }
 }

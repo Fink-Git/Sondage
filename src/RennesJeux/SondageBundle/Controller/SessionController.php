@@ -27,6 +27,12 @@ class SessionController extends Controller
     */
     public function proposeesAction(Request $request, $apercu)
     {
+        $user_name = $request->getSession()->get('user_name');
+        if (!$user_name)
+        {
+            return $this->redirectToRoute('rennes_jeux_sondage_login');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('RennesJeuxSondageBundle:Session');
 
@@ -42,6 +48,12 @@ class SessionController extends Controller
     */
     public function valideesAction(Request $request, $apercu)
     {
+        $user_name = $request->getSession()->get('user_name');
+        if (!$user_name)
+        {
+            return $this->redirectToRoute('rennes_jeux_sondage_login');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('RennesJeuxSondageBundle:Session');
 
