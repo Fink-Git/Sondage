@@ -2,7 +2,7 @@
 
 namespace RennesJeux\SondageBundle\Repository;
 
-use Doctrine\ORM\EntityRepository
+use Doctrine\ORM\EntityRepository;
 
 /**
  * JeuxRepository

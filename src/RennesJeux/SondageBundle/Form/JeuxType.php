@@ -22,7 +22,7 @@ class JeuxType extends AbstractType
         $builder
 	      ->add('nom',       		TextType::class)
 	      ->add('hote',      		TextType::class, array('disabled' => true))
-	      ->add('lieu',      		TextType::class, array('required' => false))
+	      ->add('lieu',      		TextType::class)
 	      ->add('nbparticipantmin', IntegerType::class)
 	      ->add('nbparticipantmax', IntegerType::class)
 	      ->add('sessions', CollectionType::class, array(

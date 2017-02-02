@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use RennesJeux\SondageBundle\Form\JeuxType;
 use RennesJeux\SondageBundle\Entity\Jeux;
-use RennesJeux\SondageBundle\Entity\Session;
+//use RennesJeux\SondageBundle\Entity\Session;
 
 /**
  * Description of JeuxController

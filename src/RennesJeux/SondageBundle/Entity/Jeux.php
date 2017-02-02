@@ -4,6 +4,7 @@ namespace RennesJeux\SondageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Jeux
@@ -58,8 +59,9 @@ class Jeux
     private $nbparticipantmax;
 
     /**
-    * @ORM\OneToMany(targetEntity="RennesJeux\SondageBundle\Entity\Session", mappedBy="jeu")
-    * @ORM\JoinColumn(nullable=true)
+     * @ORM\OneToMany(targetEntity="RennesJeux\SondageBundle\Entity\Session", mappedBy="jeu")
+     * @ORM\JoinColumn(nullable=true)
+     * @Assert\Valid()
     */
     private $sessions;
 

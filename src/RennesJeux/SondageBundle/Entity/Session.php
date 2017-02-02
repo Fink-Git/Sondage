@@ -3,9 +3,7 @@
 namespace RennesJeux\SondageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
-use RennesJeux\SondageBundle\Entity\Jeux;
-use RennesJeux\SondageBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Session
@@ -28,6 +26,7 @@ class Session
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetimetz")
+     * @Assert\DateTime()
      */
     private $date;
 
@@ -91,6 +90,14 @@ class Session
         return $this->date;
     }
 
+    /**
+     * @Assert\IsTrue(message = "La date doit au moins egale a la date du jour")
+     *
+    public function isDateValid()
+    {
+        return $this->date >= new \DateTime();
+    }*/
+    
     /**
      * Set nbParticipants
      *
@@ -181,4 +188,5 @@ class Session
     {
         $this->nbParticipants--;
     }
+    
 }

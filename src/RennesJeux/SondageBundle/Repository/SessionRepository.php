@@ -13,8 +13,9 @@ use Doctrine\ORM\EntityRepository;
 class SessionRepository extends EntityRepository
 {
 	/**
-	* Renvoi un querybuilder recuperant les sessions dont la date n'est pas passée et dont le nombre de participant n'a pas 
-	* encore depassé le nombre de participant minimum
+	* Renvoi un querybuilder recuperant les sessions dont la date n'est pas 
+         * passée et dont le nombre de participant n'a pas encore depassé 
+         * le nombre de participant minimum
 	*/
 	public function sessionsProposees($limit)
     {
@@ -36,8 +37,9 @@ class SessionRepository extends EntityRepository
     }
 
     /**
-    * Renvoi un querybuilder recuperant les sessions dont la date n'est pas encore passée et dont le nombre de participant
-	* a atteint le nombre de participant minimum
+    * Renvoi un querybuilder recuperant les sessions dont la date n'est pas 
+     * encore passée et dont le nombre de participant a atteint le nombre 
+     * de participant minimum
     */
     public function sessionsValidees($limit)
     {
@@ -81,7 +83,8 @@ class SessionRepository extends EntityRepository
     }
 
     /**
-    * Recherche une session par id et ramene les donnees des entites Jeux et Session
+    * Recherche une session par id et ramene les donnees des entites Jeux et 
+     * Session
     */
     public function findSession($id)
     {

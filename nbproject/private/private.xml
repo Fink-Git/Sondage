@@ -5,11 +5,13 @@
         <group>
             <file>file:/C:/xampp/htdocs/RennesJeux/src/RennesJeux/SondageBundle/Resources/views/User/login.html.twig</file>
             <file>file:/C:/xampp/htdocs/RennesJeux/src/RennesJeux/SondageBundle/Resources/config/routing.yml</file>
-            <file>file:/C:/xampp/htdocs/RennesJeux/src/RennesJeux/SondageBundle/Resources/views/Sessions/liste.html.twig</file>
-            <file>file:/C:/xampp/htdocs/RennesJeux/src/RennesJeux/SondageBundle/Controller/JeuxController.php</file>
             <file>file:/C:/xampp/htdocs/RennesJeux/src/RennesJeux/SondageBundle/Entity/User.php</file>
+            <file>file:/C:/xampp/htdocs/RennesJeux/src/RennesJeux/SondageBundle/Controller/JeuxController.php</file>
             <file>file:/C:/xampp/htdocs/RennesJeux/src/RennesJeux/SondageBundle/Resources/views/Default/index.html.twig</file>
+            <file>file:/C:/xampp/htdocs/RennesJeux/src/RennesJeux/SondageBundle/Entity/Jeux.php</file>
+            <file>file:/C:/xampp/htdocs/RennesJeux/src/RennesJeux/SondageBundle/Entity/Session.php</file>
             <file>file:/C:/xampp/htdocs/RennesJeux/src/RennesJeux/SondageBundle/Controller/UserController.php</file>
+            <file>file:/C:/xampp/htdocs/RennesJeux/src/RennesJeux/SondageBundle/Form/JeuxType.php</file>
         </group>
     </open-files>
 </project-private>
