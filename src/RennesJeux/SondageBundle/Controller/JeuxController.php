@@ -20,16 +20,20 @@ class JeuxController extends Controller
      */
     public function addAction(Request $request)
     {
-        $user_name = $request->getSession()->get('user_name');
-        if (!$user_name)
+        $user = $this->getUser();
+        if (null === $user)
         {
-            return $this->redirectToRoute('rennes_jeux_sondage_login');
+            return $this->redirectToRoute('login');
+        }
+        else
+        {
+            $user_name = $user->getUsername();
         }
 
         $jeu = new Jeux();
         $em = $this->getDoctrine()->getManager();
 
-        $joueur = $em->getRepository('RennesJeuxSondageBundle:User')->findOneByNom($user_name);
+        $joueur = $em->getRepository('RennesJeuxUserBundle:User')->findOneByUsername($user_name);
         $jeu->setHote($joueur->getNom());
 
         $form   = $this->get('form.factory')->create(JeuxType::class, $jeu);

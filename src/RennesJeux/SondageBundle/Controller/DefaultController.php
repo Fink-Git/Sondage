@@ -8,6 +8,6 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->redirectToRoute('rennes_jeux_sondage_login');
+        return $this->redirectToRoute('rennes_jeux_sondage_liste');
     }
 }

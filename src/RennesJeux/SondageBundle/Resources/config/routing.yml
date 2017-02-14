@@ -10,13 +10,13 @@ rennes_jeux_sondage_liste:
     requirements:
       affichage: apercu|proposees|validees
     
-rennes_jeux_sondage_login:
-    path:    /login
-    defaults: { _controller: RennesJeuxSondageBundle:User:login }
+#rennes_jeux_sondage_login:
+#    path:    /login
+#    defaults: { _controller: RennesJeuxSondageBundle:User:login }
 
-rennes_jeux_sondage_disconnect:
-    path:    /disconnect
-    defaults: { _controller: RennesJeuxSondageBundle:User:disconnect }
+#rennes_jeux_sondage_disconnect:
+#    path:    /disconnect
+#    defaults: { _controller: RennesJeuxSondageBundle:User:disconnect }
 
 rennes_jeux_sondage_proposees:
     path:    /proposees/{apercu}
@@ -33,18 +33,6 @@ rennes_jeux_sondage_validees:
       apercu: false
     requirements:
       apercu: true|false
-
-rennes_jeux_sondage_inscription:
-    path:    /inscription/{id}
-    defaults: { _controller: RennesJeuxSondageBundle:User:inscription }
-    requirements:
-        id: \d+
-
-rennes_jeux_sondage_desinscription:
-    path:    /desinscription/{id}
-    defaults: { _controller: RennesJeuxSondageBundle:User:desinscription }
-    requirements:
-        id: \d+
 
 rennes_jeux_sondage_add:
     path:    /ajout

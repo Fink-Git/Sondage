@@ -37,7 +37,7 @@ class Session
     private $jeu;
     
     /**
-     * @ORM\ManyToMany(targetEntity="RennesJeux\SondageBundle\Entity\User")
+     * @ORM\ManyToMany(targetEntity="RennesJeux\UserBundle\Entity\User")
      */
     private $joueurs;
 
@@ -149,11 +149,11 @@ class Session
     /**
      * Add joueur
      *
-     * @param \RennesJeux\SondageBundle\Entity\User $joueur
+     * @param \RennesJeux\UserBundle\Entity\User $joueur
      *
      * @return Session
      */
-    public function addJoueur(\RennesJeux\SondageBundle\Entity\User $joueur)
+    public function addJoueur(\RennesJeux\UserBundle\Entity\User $joueur)
     {
         $this->joueurs[] = $joueur;
 
@@ -163,9 +163,9 @@ class Session
     /**
      * Remove joueur
      *
-     * @param \RennesJeux\SondageBundle\Entity\User $joueur
+     * @param \RennesJeux\UserBundle\Entity\User $joueur
      */
-    public function removeJoueur(\RennesJeux\SondageBundle\Entity\User $joueur)
+    public function removeJoueur(\RennesJeux\UserBundle\Entity\User $joueur)
     {
         $this->joueurs->removeElement($joueur);
     }

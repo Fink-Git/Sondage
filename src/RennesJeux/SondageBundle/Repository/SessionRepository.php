@@ -53,9 +53,9 @@ class SessionRepository extends EntityRepository
     		->orderBy('s.date', 'ASC');
 
     	if ($limit)
-		{
-			$qb->setMaxResults(5);
-		}
+        {
+            $qb->setMaxResults(5);
+        }
 
         return $qb;
     }
