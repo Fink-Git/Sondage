@@ -27,8 +27,12 @@ security:
       anonymous:    true
       provider:     fos_userbundle
       form_login:
-        login_path: fos_user_security_login
-        check_path: fos_user_security_check
+        login_path:  fos_user_security_login
+        check_path:  fos_user_security_check
+        use_forward: false
+        always_use_default_target_path: true
+        default_target_path:            /sondage
+        use_referer:                    false        
       logout:
         path:       fos_user_security_logout
         target:     /login

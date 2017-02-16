@@ -34,7 +34,7 @@ class JeuxController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $joueur = $em->getRepository('RennesJeuxUserBundle:User')->findOneByUsername($user_name);
-        $jeu->setHote($joueur->getNom());
+        $jeu->setHote($joueur->getUsername());
 
         $form   = $this->get('form.factory')->create(JeuxType::class, $jeu);
 

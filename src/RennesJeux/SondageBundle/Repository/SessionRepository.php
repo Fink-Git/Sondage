@@ -17,7 +17,7 @@ class SessionRepository extends EntityRepository
          * passée et dont le nombre de participant n'a pas encore depassé 
          * le nombre de participant minimum
 	*/
-	public function sessionsProposees($limit)
+	public function sessionsProposees()
     {
     	$qb =  $this->createQueryBuilder('s')
     		->innerJoin('s.jeu', 'jeu')
@@ -26,12 +26,7 @@ class SessionRepository extends EntityRepository
     		->where('s.date >= :datedujour')
     			->setParameter('datedujour', new \Datetime(date('Ymd')))
     		->andWhere('s.nbParticipants < jeu.nbparticipantmin')
-            ->orderBy('s.date', 'ASC');
-
-         if ($limit)
-         {
-         	$qb->setMaxResults(5);
-         }
+                ->orderBy('s.date', 'ASC');
 
         return $qb;
     }
@@ -41,7 +36,7 @@ class SessionRepository extends EntityRepository
      * encore passée et dont le nombre de participant a atteint le nombre 
      * de participant minimum
     */
-    public function sessionsValidees($limit)
+    public function sessionsValidees()
     {
     	$qb = $this->createQueryBuilder('s')
     		->innerJoin('s.jeu', 'jeu')
@@ -51,11 +46,6 @@ class SessionRepository extends EntityRepository
     		->andWhere('s.date >= :datedujour')
     			->setParameter('datedujour', new \Datetime(date('Ymd')))
     		->orderBy('s.date', 'ASC');
-
-    	if ($limit)
-        {
-            $qb->setMaxResults(5);
-        }
 
         return $qb;
     }

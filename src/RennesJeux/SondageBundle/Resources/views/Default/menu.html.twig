@@ -12,9 +12,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <!--li><a href="#">Dashboard</a></li>
-        <li><a href="#">Settings</a></li>
-        <li><a href="#">Profile</a></li-->
-        <li><a href="{{ path('fos_user_security_logout')}}">Se deconnecter</a></li>
+        <li><a href="#">Settings</a></li-->
+        <li>{% if is_granted("IS_AUTHENTICATED_REMEMBERED")%}<a href="#">{{ app.user.username }}</a>{% endif %}</li>
+        <li><a href="{{ path('fos_user_security_logout')}}">Se deconnecter</a>
+        </li>
       </ul>
       <!--form class="navbar-form navbar-right">
         <input type="text" class="form-control" placeholder="Search...">

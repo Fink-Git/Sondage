@@ -1,4 +1,7 @@
 
+{# src/OC/UserBundle/Resources/views/Security/login.html.twig #}
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,34 +32,19 @@
   </head>
 
   <body>
-
     <div class="container">
-
-		{{ form_start(form, {'attr': {'class': 'form-signin'}}) }}
-		
-		<h2 class="form-signin-heading">Entrez votre pseudo</h2>
-		{# Les erreurs générales du formulaire. #}
-		{{ form_errors(form) }}
-		{# Génération du label. #}
-		{{ form_label(form.nom, "Pseudo", {'label_attr': {'class': 'sr-only'}}) }}
-		
-		{# Affichage des erreurs pour ce champ précis. #}
-		{{ form_errors(form.nom) }}
-		{# Génération de l'input. #}
-		{{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
-		
-		{# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
-		{{ form_widget(form.login, {'attr': {'class': 'btn btn-lg btn-primary btn-block'}}) }}
-		
-		{# Génération automatique des champs pas encore écrits.
-		Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
-		et tous les champs cachés (type « hidden »). #}
-		{{ form_rest(form) }}
-		
-		{# Fermeture de la balise <form> du formulaire HTML #}
-		{{ form_end(form) }}
-
-    </div> <!-- /container -->
+        <div class="header clearfix">
+            <nav>
+              <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="{{ path('fos_user_security_login')}}">Se Logger</a></li>
+                <li role="presentation"><a href="{{ path('fos_user_registration_register')}}">S'enregistrer</a></li>
+              </ul>
+            </nav>
+        </div>
+            {# On définit ce block, dans lequel vont venir s'insérer les autres vues du bundle #}
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+   </div> <!-- /container -->
 
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

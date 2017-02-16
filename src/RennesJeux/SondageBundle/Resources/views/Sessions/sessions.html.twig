@@ -14,29 +14,31 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	  	{% for session in sessions %}
-	    <tr>
-	      <td>{{ session.date|date('d/m/Y') }}</td>
-	      <td>{{ session.jeu.nom }}</td>
-	      <td>{{ session.jeu.hote }}</td>
-	      <td>{% if session.jeu.lieu %}{{ session.jeu.lieu }}{% endif %}</td>
-	      <td>{{ session.nbParticipants }}</td>
-	      <td>      	
-		      	{% if session.nbParticipants < session.jeu.nbparticipantmax %}
-		      		{% for joueur in session.joueurs if joueur.username|upper == app.user.user_name|upper %}
-	      				<a class="btn btn-warning" href={{ path('user.desinscription',{'id' : session.id }) }} role="button">Se desinscrire</a>
-	      			{% else %}
-	      				<a class="btn btn-primary" href={{ path('user.inscription',{'id' : session.id }) }} role="button">Je veux participer</a>
-	      			{% endfor %}
-	      		{% else %}
-	      			{% for joueur in session.joueurs if joueur.username|upper == app.user.username|upper %}
-	      				<a class="btn btn-warning" href={{ path('user.desinscription',{'id' : session.id }) }} role="button">Se desinscrire</a>
-	      			{% else %}
-	      				Session Complete
-	      			{% endfor %}
-		      	{% endif %}
-      	  </td>
-	    </tr>
+	   {% for session in sessions %}
+               {% if not apercu or (apercu and loop.index < 6) %}
+                    <tr>
+                      <td>{{ session.date|date('d/m/Y') }}</td>
+                      <td>{{ session.jeu.nom }}</td>
+                      <td>{{ session.jeu.hote }}</td>
+                      <td>{% if session.jeu.lieu %}{{ session.jeu.lieu }}{% endif %}</td>
+                      <td>{{ session.nbParticipants }}</td>
+                      <td>      	
+                        {% if session.nbParticipants < session.jeu.nbparticipantmax %}
+                            {% for joueur in session.joueurs if joueur.username == app.user.username %}
+                                    <a class="btn btn-warning" href={{ path('rennes_jeux_sondage_desinscription',{'id' : session.id }) }} role="button">Se desinscrire</a>
+                            {% else %}
+                                    <a class="btn btn-primary" href={{ path('rennes_jeux_sondage_inscription',{'id' : session.id }) }} role="button">Je veux participer</a>
+                            {% endfor %}
+                        {% else %}
+                            {% for joueur in session.joueurs if joueur.username|upper == app.user.username|upper %}
+                                    <a class="btn btn-warning" href={{ path('rennes_jeux_sondage_desinscription',{'id' : session.id }) }} role="button">Se desinscrire</a>
+                            {% else %}
+                                    Session Complete
+                            {% endfor %}
+                        {% endif %}
+                      </td>
+                    </tr>
+                {% endif %}
 	    {% endfor %}
 	  </tbody>
 	</table>
