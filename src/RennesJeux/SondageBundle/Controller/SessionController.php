@@ -68,7 +68,7 @@ class SessionController extends Controller
      * @param int $id id de la session
      * @return type
      */
-    public function inscriptionAction($id)
+    public function inscriptionAction(Request $request, $id)
     {
         $user = $this->getUser();
         if (null === $user)
@@ -90,6 +90,7 @@ class SessionController extends Controller
             $sessionJeu->addJoueur($joueur);
             $sessionJeu->increaseParticipants();
             $em->flush();
+            $request->getSession()->getFlashBag()->add('info', "Vous etes incrit.");
         }
 
         return $this->redirectToRoute('rennes_jeux_sondage_liste');
@@ -100,7 +101,7 @@ class SessionController extends Controller
      * @param int $id
      * @return type
      */
-    public function desinscriptionAction($id)
+    public function desinscriptionAction(Request $request, $id)
     {
         $user = $this->getUser();
         if (null === $user)
@@ -112,15 +113,23 @@ class SessionController extends Controller
         // on recupere la session est les joueurs associes
         $sessionJoueur = $em->getRepository('RennesJeuxSondageBundle:Session')->find($id);
 
-        // on verifie que le user est bien inscrit a la session
-        foreach ($sessionJoueur->getJoueurs() as $joueur) 
+        if ($user->getUsername() == $sessionJoueur->getJeu()->getHote())
         {
-            if (strtoupper($user->getUsername()) == strtoupper($joueur->getUsername()))
+            $request->getSession()->getFlashBag()->add('info', "Vous etes le createur de cette session, vous ne pouvez pas vous desincrire.");
+        }
+        else
+        {
+            // on verifie que le user est bien inscrit a la session
+            foreach ($sessionJoueur->getJoueurs() as $joueur) 
             {
-                // on reduit le nombre de participant
-                $sessionJoueur->removeJoueur($joueur);
-                $sessionJoueur->decreaseParticipants();
-                $em->flush();
+                if (strtoupper($user->getUsername()) == strtoupper($joueur->getUsername()))
+                {
+                    // on reduit le nombre de participant
+                    $sessionJoueur->removeJoueur($joueur);
+                    $sessionJoueur->decreaseParticipants();
+                    $em->flush();
+                    $request->getSession()->getFlashBag()->add('info', "Vous etes desinscrit.");
+                }
             }
         }
 

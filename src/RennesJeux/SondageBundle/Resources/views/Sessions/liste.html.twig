@@ -2,8 +2,15 @@
 {% extends 'RennesJeuxSondageBundle::base.html.twig' %}
 
 {%  block body %}
+    
+{% for flash_message in app.session.flashBag.get('info') %}
+    <div class="alert alert-info">
+        {{ flash_message }}
+    </div>
+{% endfor %}
+
 {% if affichage == 'apercu' %}
-<h1 class="page-header">Sessions</h1>
+<h1 class="page-header">Les prochaines sessions</h1>
 {{ render(controller("RennesJeuxSondageBundle:Session:proposees", {'apercu':true}))}}
 
 {{ render(controller("RennesJeuxSondageBundle:Session:validees", {'apercu':true}))}}
@@ -11,9 +18,9 @@
 	{% if affichage == 'proposees' %}
 	{{ render(controller("RennesJeuxSondageBundle:Session:proposees", {'apercu':false}))}}
 	{% else %}
-		{% if affichage == 'validees' %}
-			{{ render(controller("RennesJeuxSondageBundle:Session:validees", {'apercu':false}))}}
-		{% endif %}
+            {% if affichage == 'validees' %}
+                {{ render(controller("RennesJeuxSondageBundle:Session:validees", {'apercu':false}))}}
+            {% endif %}
 	{% endif %}
 {% endif %}
 {% endblock %}

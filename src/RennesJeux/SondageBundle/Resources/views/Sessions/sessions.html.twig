@@ -21,7 +21,9 @@
                       <td>{{ session.jeu.nom }}</td>
                       <td>{{ session.jeu.hote }}</td>
                       <td>{% if session.jeu.lieu %}{{ session.jeu.lieu }}{% endif %}</td>
-                      <td>{{ session.nbParticipants }}</td>
+                      <td data-toggle="tooltip" title="{% for joueur in session.joueurs %} {{ joueur.username }} {% endfor %}" align="center">
+                          {{ session.nbParticipants }}
+                      </td>
                       <td>      	
                         {% if session.nbParticipants < session.jeu.nbparticipantmax %}
                             {% for joueur in session.joueurs if joueur.username == app.user.username %}

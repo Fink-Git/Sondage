@@ -15,8 +15,11 @@ class SessionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+         $year = date("Y");
          $builder
-      		->add('date', DateType::class);
+      		->add('date', DateType::class, array(
+                    'years' => range($year,$year + 1)
+                ));
     }
 
     /**
