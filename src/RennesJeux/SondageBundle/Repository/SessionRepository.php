@@ -3,6 +3,7 @@
 namespace RennesJeux\SondageBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use RennesJeux\UserBundle\Entity\User;
 
 /**
  * SessionRepository
@@ -89,4 +90,22 @@ class SessionRepository extends EntityRepository
         return $qb->getQuery()->getOneOrNullResult();
     }
 
+    /**
+     * Recupere les sessions de l'utilisateur courant
+     * @param User $user
+     */
+    public function sessionsParJoueur($user)
+    {
+        $qb = $this->createQueryBuilder('s')
+    		->innerJoin('s.jeu', 'jeu', 'WITH', 'jeu.hote = :hote')
+                    ->setParameter('hote', $user->getUsername())
+    		->leftJoin('s.joueurs', 'joueurs')
+    		->addSelect('jeu, joueurs')
+    		->where('s.date >= :datedujour')
+                    ->setParameter('datedujour', new \Datetime(date('Ymd')))
+    		->orderBy('s.date', 'ASC');
+
+        return $qb;
+                              
+    }
 }

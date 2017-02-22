@@ -135,4 +135,52 @@ class SessionController extends Controller
 
         return $this->redirectToRoute('rennes_jeux_sondage_liste');
     }
+    
+    /**
+     * Visualiser les sessions de l'utilisateur courant
+     * @return type
+     */
+    public function mesSessionsAction()
+    {
+        $user = $this->getUser();
+        if (null === $user)
+        {
+            return $this->redirectToRoute('login');
+        }
+        
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('RennesJeuxSondageBundle:Session');
+        $requete = $repository->sessionsParJoueur($user);
+        $sessionsUser = $repository->Execution($requete);
+        
+        return $this->render('RennesJeuxSondageBundle:Sessions:sessionsUtilisateur.html.twig', array('sessions' => $sessionsUser));
+    }
+    
+    /**
+     * Suppression d'une session de jeu
+     * @param int $id id de la session a supprimer
+     */
+    public function deleteAction(Request $request, $id)
+    {
+        $user = $this->getUser();
+        if (null === $user)
+        {
+            return $this->redirectToRoute('login');
+        }
+        
+        $em = $this->getDoctrine()->getManager();
+        $session = $em->getRepository('RennesJeuxSondageBundle:Session')->find($id);
+        
+        if ($user->getUsername() == $session->getJeu()->getHote())
+        {
+            $em->remove($session);
+            $em->flush();
+            return $this->redirectToRoute('rennes_jeux_sondage_sessionsUser');
+        }
+        else
+        {
+            $request->getSession()->getFlashBag()->add('info', "Vous n'etes pas le createur de cette session, vous ne pouvez pas la supprimer.");
+            return $this->redirectToRoute('rennes_jeux_sondage_liste');
+        }
+    }
 }

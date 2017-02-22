@@ -1,0 +1,39 @@
+{% extends 'RennesJeuxSondageBundle::base.html.twig' %}
+
+{%  block body %}
+<h2 class="sub-header">Mes Sessions</h2>
+{% if sessions|length > 0 %}
+<div class="table-responsive">
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th>Date</th>
+	      <th>Nom</th>
+	      <th>Ou ?</th>
+	      <th>Participants</th>
+	      <th>Action</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	   {% for session in sessions %}
+                <tr>
+                  <td>{{ session.date|date('d/m/Y') }}</td>
+                  <td>{{ session.jeu.nom }}</td>
+                  <td>{% if session.jeu.lieu %}{{ session.jeu.lieu }}{% endif %}</td>
+                  <td data-toggle="tooltip" title="{% for joueur in session.joueurs %} {{ joueur.username }} {% endfor %}" align="center">
+                      {{ session.nbParticipants }}
+                  </td>
+                  <td>      	
+                    <a class="btn btn-danger" href={{ path('rennes_jeux_sondage_delete',{'id' : session.id }) }} role="button">Supprimer</a>
+                  </td>
+                </tr>
+	    {% endfor %}
+	  </tbody>
+	</table>
+</div>
+{% else %}
+Pas de sessions pour l'instant
+{% endif %}  
+
+{% endblock %}
+

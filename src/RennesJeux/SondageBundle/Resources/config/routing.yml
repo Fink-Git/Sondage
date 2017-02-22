@@ -51,3 +51,15 @@ rennes_jeux_sondage_desinscription:
         _controller: RennesJeuxSondageBundle:Session:desinscription
     requirements:
         id: \d+
+        
+rennes_jeux_sondage_sessionsUser:
+    path:    /mesSessions
+    defaults:
+        _controller: RennesJeuxSondageBundle:Session:mesSessions
+        
+rennes_jeux_sondage_delete:
+    path:    /delete/{id}
+    defaults: 
+        _controller: RennesJeuxSondageBundle:Session:delete
+    requirements:
+        id: \d+
