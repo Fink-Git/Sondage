@@ -63,3 +63,10 @@ rennes_jeux_sondage_delete:
         _controller: RennesJeuxSondageBundle:Session:delete
     requirements:
         id: \d+
+
+rennes_jeux_sondage_detail:
+    path:   /detail/{id}
+    defaults:
+        _controller: RennesJeuxSondageBundle:Session:detail
+    requirements:
+        id: \d+

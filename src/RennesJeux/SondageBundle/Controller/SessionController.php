@@ -183,4 +183,17 @@ class SessionController extends Controller
             return $this->redirectToRoute('rennes_jeux_sondage_liste');
         }
     }
+
+    /**
+     * Detail d'une session
+     *  - jeu
+     *  - date
+     *  - lieu
+     *  - participants
+     * @param $id id de la session
+     */
+    public function detailAction($id)
+    {
+
+    }
 }
